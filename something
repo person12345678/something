@@ -1,0 +1,49 @@
+public boolean bracketsMatch(String brackets)
+{
+int countOfLeftBracket = 0;
+int countOfRightBracket = 0;
+boolean rightBracketProcessingMode = false;
+boolean leftBracketProcessingMode = true;
+
+if (brackets.length() == 0 )
+    return true;
+
+ for(int i = 0; i <= brackets.length() - 1 ; i++)
+ {
+  char currentChar=brackets.charAt(i);
+  // check processing mode? 
+  if (rightBracketProcessingMode)
+  {
+    countOfLeftBracket -=  1;
+    if (countOfLeftBracket < 0)
+        return false;
+        
+    countOfRightBracket -= 1;
+    if (currentChar == '{')
+    {
+     leftBracketProcessingMode = true;
+      rightBracketProcessingMode = false;
+    }
+    else if (currentChar == '}')      
+      countOfRightBracket += 1;
+  } 
+
+    if (leftBracketProcessingMode)
+    {
+        if ( currentChar == '{' )
+            countOfLeftBracket +=  1;      
+          else if ( currentChar == '}' )
+          {
+            rightBracketProcessingMode = true;
+            leftBracketProcessingMode = false;
+            countOfRightBracket+= 1;
+          } 
+    }
+  
+ }
+
+if (countOfLeftBracket == countOfRightBracket)
+  return true;
+else
+  return false;
+}
